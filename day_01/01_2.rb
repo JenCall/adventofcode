@@ -1,5 +1,5 @@
 # Find the two entries in the list that sum to 2020. 
-# Multiplying them together produces and find the required result.
+# Multiplying them together produces the required result.
 
 file = File.open("input.txt")
 input = file.readlines.map(&:chomp).map(&:to_i)

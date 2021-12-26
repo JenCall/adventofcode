@@ -22,9 +22,9 @@ input.each do |string|
     valid_password << password if (count >= num_1 && count <= num_2)
 end
 # print count of valid passwords
-p valid_password.count
+puts valid_password.count
 
-#PART 2
+# PART 2 - simple
 # define valid passwords variable
 valid_password = []
 
@@ -44,4 +44,39 @@ input.each do |string|
     end
 end
 # print count of valid passwords
-p valid_password.count
+puts valid_password.count
+
+# PART 2-2 structured into class
+class Password
+    attr_accessor :min, :max, :letter, :value
+  
+    def initialize(min:, max:, letter:, value:)
+      @min = min.to_i - 1
+      @max = max.to_i - 1
+      @letter = letter
+      @value = value
+    end
+  
+    def valid_password?
+      letters = value.scan /\w/
+      return true if letters[min] == letter && letters[max] != letter
+      return true if letters[min] != letter && letters[max] == letter
+  
+      false
+    end
+  
+    def to_s
+      "#{letter}  #{min}  #{max}  #{value}"
+    end
+  end
+  
+  contents = File.open("input.txt").read.split("\n")
+  passwords = []
+  
+  contents.map do |item|
+    key, value = item.split(':')
+    quantity, letter = key.split(' ')
+    passwords << Password.new(min: quantity.split('-').first, max: quantity.split('-').last, letter: letter, value: value)
+  end
+  
+  puts "Total: #{passwords.select { |pass| pass.valid_password? }.count}"

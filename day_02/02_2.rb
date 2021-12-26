@@ -8,16 +8,18 @@ input = file.readlines.map(&:chomp)
 # define valid passwords variable
 valid_password = []
 
-
+# loop through the list
 input.each do |string|
+    # define variables
     num_1 = string.split(/-/).first.to_i
     num_2 = string.split(/-/, 2)[1][0..1].to_i
     letter = string.split(/:/).first[-1]
     password = string[7..string.length]
-
     count = password.count(letter)
-    
+
+    # conditional statement
     valid_password << password if (count >= num_1 && count <= num_2)
 end
+# print count of valid passwords
 p valid_password.count
 
